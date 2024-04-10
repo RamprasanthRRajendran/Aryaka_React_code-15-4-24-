@@ -1,0 +1,1029 @@
+
+.chatArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  
+  min-height: 81%;
+    max-height: 81%;
+  /* height: 100%; */
+  padding: 10px;
+  background-color: white; 
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  margin-bottom: 60px;
+  overflow-y: auto;
+}
+.itemsInContent{
+  border-radius: 4px;
+  border: 1px solid #D1D1D1;
+  padding: 4px 6px;
+  font-weight: 600;
+  /* color: {process.env.REACT_APP_SECONDARY_COLOR} */
+  /* margin-right: 100px; */
+}
+
+.itemsInContent:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ms-DetailsRow-cell {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  font-size: 11px !important;
+  /* text-align: center; */
+}
+
+.ms-DetailsHeader-cell{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  
+  /* padding-left: 30px; */
+  /* text-align: center !important; */
+}
+
+.ms-DetailsHeader-cellName{
+  font-size: 13px !important;
+}
+.ms-FocusZone{
+  padding-top: 0px !important;
+}
+
+.is-row-header{
+  font-weight: 600;
+}
+.ms-Dialog-main{
+   max-width: max-content;
+  max-height: max-content;
+  /* font-size: 20px; */
+  /* overflow: hidden; */
+}
+.ms-DetailsRow-cell{
+  font-weight: 600;
+}
+
+
+
+.commandBarButton {
+  height: 35px;
+  background-color: white;
+  color: midnightblue;
+  /* border-top-left-radius: 10px; */
+}
+
+.commandBarButton:hover {
+  color: white;
+  background-color: midnightblue;
+}
+
+
+.commandBarButton .ms-Button-icon {
+  color: orangered;
+}
+
+.commandBarButton:hover .ms-Button-icon {
+  color: white;
+}
+
+.disabledcommandBarButton{
+  color:grey !important;
+  background-color: white !important;
+}
+
+.disabledcommandBarButton:hover {
+  color: grey !important;
+  background-color: white !important;
+}
+
+.ms-Dialog-inner{
+  padding: 5px;
+}
+.commandBarButton.selected {
+  background-color: white;
+  color: midnightblue;
+}
+
+.commandBarButton.selected .ms-Button-icon {
+  color: midnightblue;
+}
+
+.commandBarButton.selected:hover {
+  background-color: midnightblue;
+  color: white;
+}
+
+.commandBarButton.selected:hover .ms-Button-icon:hover {
+  color: white;
+}
+
+
+
+.chatMessages {
+  overflow-y: auto;
+  max-height: 450px;
+  width: 65%;
+  /* margin-left: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 20px; */
+  
+  /* background-color: red; */
+  text-align: center; /* adjust this value as needed */
+}
+
+.PersonaCard{
+  padding: 10px;
+  background-color: #fbfbfb;
+}
+
+
+.buttonprofile{
+  background-color: none;
+  font-size: 11px !important;
+}
+
+.buttonprofile:hover{
+  background-color: #fbfbfb;
+}
+
+.personnaSignout{
+ 
+  border:"none" !important;
+  border-radius: 4px;
+  font-size: 11px !important;
+}
+
+.personnaSignout:hover{
+  background-color: #f3f3f3 !important;
+}
+
+.personnaSignout2{
+   
+    border: none;
+    background: none;
+    display: flex;
+    gap: 4px;
+    width: max-content;
+    font-size: 11px !important;
+    /* margin-right:15px; */
+    padding-left: 20px;
+    padding-right: 28px;
+    text-align: center;
+}
+
+.personnaSignout2:hover{
+  background-color: #f3f3f3 !important;
+}
+
+.personaButton{
+  font-size: 11px !important;
+  font-weight: 600;
+
+}
+
+
+
+
+
+.detailedUser{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  font-size: 11px !important;
+}
+
+.PersonaCardBox{
+  padding: 16px;
+  background-color: #fbfbfb;
+  display: flex;
+  align-content: space-between;
+  width:18%;
+  /* height: 100%; */
+  border-radius: 10px;
+}
+
+.inputArea {
+  width: 60%;
+  margin-top: 5px;
+  justify-content: center; 
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  /* padding-top: 10px; */
+}
+
+   
+  .user, .assistant {
+    padding-left: 40px;
+    padding-bottom: 15px;
+  }
+   
+  .logoHeader{
+    text-align: center;
+    font-size: xxx-large;
+    font-weight: 500;
+    color: midnightblue;
+     
+     
+  }
+
+  .AImessageIcon:hover{
+    color:midnightblue !important;
+  }
+   
+  .logoHeaderPara{
+    text-align: center;
+   
+  }
+   
+  .logoHeaderPara1{
+    text-align: center;
+    margin-top: 110px;
+  }
+
+
+  .styledInput{
+    height: 120px;
+    background: #FFFFFF;
+    padding: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    font-size: 11px !important;
+  }
+
+  .styledInput :disabled{
+    height: 120px;
+    background: #FFFFFF;
+    padding: 10px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    font-size: 11px !important;
+  }
+  .sendBtn{
+  background-color: none;
+  }
+
+  .sendBtn:disabled{
+    background-color: none !important;
+  }
+  .sendBtn:hover{
+    background-color: white;
+  }
+  
+  .suffix-138 {
+    /* background: rgb(243, 242, 241); */
+    background-color: white;
+    color: rgb(255, 253, 251);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    line-height: 1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.questionInputBottomBorder {
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  left: 0%;
+  bottom: 0%;
+  
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  
+}
+   
+  .contentFormat {
+ 
+   min-width: 50px;
+    max-width: 700px;
+    text-align: center;
+    max-height: 800px;
+    min-height: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: 'Segoe UI' !important;
+   
+  }
+  .user {
+    text-align: center;
+    background-color: #EDF5FD;
+    color: black;
+    white-space: pre-wrap !important;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+    /* margin: 10px; */
+    /* padding: 10px; */
+    padding-left: 10px;
+    padding-right: 0px;
+    min-width: max-content;
+    max-width: 800px;
+    /* align-items: center; */
+    /* display: inline-block; */
+   /* width: 1200px; */
+   max-height: 800px;
+   min-height: 50px;
+    float: right;
+    clear: both;
+    position: relative;
+    right: 50px;
+    /* align-items: center; */
+    /* text-align: center; */
+   
+}
+  
+.assistant {
+    text-align: justify;
+    background: #FFFFFF;
+    color: black;
+    border-radius: 10px;
+    /* box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12); */
+    margin: 10px;
+    padding-right: 2px;
+    
+    min-width: 500px;
+    max-width: 1200px;
+    display: inline-block;
+    float: left;
+    clear: both;
+    min-height: 100px;
+    align-items: center;
+    font-family: 'Segoe UI' !important;
+}
+
+  .clearChat{
+    height: 40px;
+    width: 40px;
+    border-radius: 4px;
+    /* left: 7px; */
+    top: 12px;
+    right: 14px;
+    color: #FFFFFF;
+  }
+  
+  .newChat{
+    height: 40px;
+    width: 40px;
+    border-radius: 4px;
+    bottom: 8px;
+    /* left: 7px; */
+    /* top: 25px; */
+    right: 14px;
+    color: #FFFFFF;
+  }
+
+  .contentFormatresponse{
+    /* margin-left: 50px; */
+    display: inline-block;
+    white-space: pre-wrap !important;
+    /* background-color: rgb(255, 255, 255);  */
+    /* background-color: #ffffff; */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+   border-radius: 10px;
+   /* min-width: none; */
+   min-width: 200px;
+    max-width: 700px;
+    padding: 10px 10px 0px 10px;
+    line-height: 1.5;
+    overflow-x:visible ;
+    font-family: 'Segoe UI' !important;
+  }
+
+  .codeBlock .token.operator,
+  .codeBlock .token.punctuation ,.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted ,.token.keyword,.token.class-name,.token.number
+  /* .codeBlock .token.keyword,
+  .codeBlock .token.builtin,
+  .codeBlock .token.string { */
+    {
+    background: none;
+    /* color:black; */
+
+  }
+
+  .FormatOpenaicontent21 .token.punctuation ,.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted ,.token.keyword,.token.operator,.token.class-name,.token.number{
+    background: none;
+    color:black;
+  }
+  
+  .contentFormatOpenai {
+    /* margin-left: 50px; */
+    display: inline-block;
+    /* background-color: rgb(255, 255, 255); */
+    color:rgb(0, 0, 0);
+    /* background-color: #0F0F0F; */
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  min-width: 700px;
+  max-width: 700px;
+    padding: 20px;
+    padding-top: 0px;
+    text-wrap: wrap;
+    /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
+    /* padding-right: 20px;   */
+    font-family: 'Segoe UI' !important;
+  }
+
+  FormatOpenaicontent{
+    font-family: 'Segoe UI' !important;
+    background-color: black !important;
+  }
+
+  FormatOpenaicontent21{
+    font-family: 'Segoe UI' !important;
+    background-color: black !important;
+    width:100px !important;
+    text-align: justify;
+    color:black !important;
+    font-family:"Segoe UI" !important;
+  }
+.assistant codeBlock{
+  padding-right:50px;
+}
+  .codeBlock {
+    color:white;
+    /* padding: 10px; */
+    /* padding-right:50px; */
+    background-color: none;
+   width:80px !important;
+    /* border-radius: 5px; */
+    /* overflow-x: auto; */
+  }
+   
+ 
+   
+  /* input {
+    padding: 8px 10px;
+    margin-right: 10px;
+    border-color: #343541;
+    border-radius: 10px;
+  } */
+   
+  button {
+    padding: 6px 15px;
+  }
+   
+  @keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
+   
+  .blinking-cursor {
+    animation: blink 1s infinite;
+    display: inline-block;
+    width: 2px;
+    height: 14px;
+    background-color: black;
+    vertical-align: middle;
+  }
+   
+  .formattedText {
+    /* font-family: "Arial", sans-serif; */
+    font-size: 11px;
+    /* line-height: 4; */
+    padding-right:10px;
+    /* margin-right: 20px; */
+    margin: 2px;
+    border-radius: 5px;
+    text-align: justify;
+    min-width: min-content;
+    max-width: 800px;
+    max-height: max-content;
+    min-height: 5px;
+    font-family: 'Segoe UI' !important;
+   
+  }
+   
+   
+  /*////////////////////////////////////////////////////*/
+  .buttonContainer {
+    margin-left: 230px;
+    padding-top: 32px;
+    text-align: center;
+    font: 300px;
+    display: flex; /* Make the container a flex container to align items horizontally */
+    align-items: center;
+  }
+   
+  .fileInput {
+  margin-right: 0%; /* Adjust the margin as needed to add space between the input and button */
+  font-size: 11px;
+  height: 40px;
+  padding-left:20px
+  }
+
+  .fileInput::file-selector-button {
+    border-radius: 4px;
+    padding: 0 16px;
+    height: 30px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+  
+  /* file upload button hover state */
+  .fileInput::file-selector-button:hover {
+    background-color: #f3f4f6;
+    box-shadow: 0px 4p 8px rgba(0, 0, 0, 0.1), 0px 0px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .ms-DetailsHeader-cellTitle{
+    font-size: 14px !important;
+  }
+  
+  /* file upload button active state */
+  .fileInput::file-selector-button:active {
+    background-color: #e5e7eb;
+  }
+  .FormatOpenaicontent{
+    width:100px !important;
+    text-align: justify;
+    font-family:"Segoe UI" !important;
+  }
+   
+  .topButton {
+    background-color:  rgb(241, 102, 9);
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 11px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+  }
+   
+  .topButton:hover {
+    background-color:rgb(35, 120, 247);
+  }
+   
+ 
+   
+  .styledButton {
+  /* background-color: rgb(241, 102, 9); */
+  border: none;
+  padding: 1px 1px;
+  color: rgb(241, 102, 9);
+  /* color: white; */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  /* width: 80px; */
+  /* font-size: 12px; */
+  /* height: 30px; */
+  }
+   
+  .styledButton:hover {
+    /* background-color: #0077cc; */
+    color: #0077cc;
+  }
+   
+
+   
+   
+  .company-logo {
+    width: 100%;   /* or whatever width you prefer */
+    height: 40px;  /* to maintain aspect ratio */
+    margin: 0 10px;  /* optional: add some margin if needed */
+  }
+   
+   
+  /* Footer styles */
+  .footer {
+    text-align: center;
+    background-color: midnightblue;
+    color: white;
+    padding: 23px 0;
+    /* position: fixed; */
+    width: 100%;
+    bottom: 0;
+    height: 100%;
+   
+  }
+   
+  .userProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-left: 200px; /* Adjust to position it correctly */
+  }
+   
+  .profilePic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+   
+  .userName {
+    margin-top: 10px;
+    text-align: center;
+  }
+   
+   
+  /* .assistant.formattedText::before {
+    content: "AI";
+    background-color: rgb(82, 242, 82);
+    color: white;
+  } */
+   
+   
+  .mainContent {
+  background: #f2f2f2;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+  padding-right: 10px;
+   padding-left: 10px;
+   
+  }
+   
+   
+   
+   
+  /* Container for the dialog */
+  .dialog-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999; /* Ensure it's on top of everything */
+  }
+   
+  /* Styling for the colorful dialog box */
+  .dialog-box {
+  background: white;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+   
+  /* Header of the dialog */
+  .dialog-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: black;
+  }
+   
+  /* Close button style */
+  .dialog-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 14px;
+  cursor: pointer;
+  }
+   
+  .dialog-button:hover {
+  background-color: #0056b3;
+  }
+   
+   
+  /* Navbar styles */
+  .navbar {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: midnightblue;
+    padding: 15px 20px;
+    color: white;
+    font-size: 30px;
+   
+  }
+   
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+   
+  .menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+   
+  .brandtext {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
+   
+  .brandtext .span {
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: xxx-large;
+  }
+   
+  .navbar-right i {
+    font-size: 24px;
+    margin-left: 20px;
+    cursor: pointer;
+   
+  }
+   
+  /* Sidebar styles */
+  .sidebar {
+    position: fixed;
+    top: 89px;
+    left: -250px;
+    width: 183px;
+    height: 78%;
+    background-color: midnightblue;
+    transition: left 0.3s;
+  }
+   
+  .show {
+    left: 0;
+  }
+   
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+   
+  .topButton {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+   
+  .topButton:hover {
+    background-color: #555;
+  }
+   
+  .topButton i {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+   
+  /* Adjust these styles to your needs */
+   
+   
+   
+  /* Default styles for larger screens */
+  .my-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  }
+   
+  .my-table thead {
+  background-color: #333;
+  color: #fff;
+  }
+   
+  .my-table th,
+  .my-table td {
+  /* padding: 12px;
+  font-size: 16px;
+  text-align: left;
+  text-align: center; */
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  }
+   
+  .my-table tbody {
+  background-color: #f7f7f7;
+  }
+   
+  .my-table tr {
+  border-bottom: 1px solid #ddd;
+  }
+   
+  .my-table tbody tr:hover {
+  background-color: #e0e0e0;
+  }
+   
+  /* Responsive styles for medium-sized screens */
+  @media (max-width: 768px) {
+  .my-table th,
+  .my-table td {
+    padding: 8px; /* Decrease padding for medium screens */
+    font-size: 14px; /* Decrease font size for medium screens */
+  }
+  }
+   
+  .h2{
+  text-align: center;
+  margin-left: 12px;
+  }
+  .cignitiUpload_CommandBar{
+  display: flex;
+  justify-content: space-between;
+   
+  }
+  /* .cignitiUpload_CommandBar_hrdiv{
+   
+  } */
+  .UploadTable{
+  width: 100%;
+  margin: auto;
+  border-radius: 10px;
+  height: 600px;
+  /* background-color: red; */
+  }
+ 
+   
+  .tableUpload{
+  width: 75%;
+  margin: auto;
+  }
+   
+  .logTable{
+   
+  width: 100%;
+  margin: auto;
+   
+  }  
+   
+  .cignitiUpload_CommandBar{
+  display: flex;
+  justify-content: flex-end;
+  }
+   
+  .table {
+  display: flex; 
+   flex-direction: column;
+  
+  /* border:none !important; */
+  }
+
+  
+  /* .row {
+  display: flex;
+  flex-direction: row;
+  background-color: lightgray;
+  }
+   
+  .row:nth-child(even) {
+  background-color: lightblue;
+  }
+   
+  .row .cell {
+  padding: 8px;
+  border: 1px solid #ddd;
+  }*/
+  .Ciginti_popiteminvoke{
+  display: flex;
+  flex-direction: column;
+  }
+  .cell{
+  padding: 5px;
+  background:  rgb(255, 255, 255);
+ box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.2);
+ /* border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important; */
+  margin: 1px;
+  }
+
+  .tableleft{
+   width:400px; 
+
+  }
+
+.ms-Dialog-title{
+  text-align: center !important;
+}
+  .cell:hover td{
+    padding: 5px;
+    background:midnightblue;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    color:#FFFFFF;
+  margin: 1px;
+  }
+  .cellEven {
+  padding: 5px;
+  background: #fff;
+  margin: 1px;
+  text-align: justify;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.2);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important; */
+  padding:5px;
+   /* color: #000000; */
+   
+  }
+  .tableright{
+    width: 110px;
+  }
+
+  .cellEven:hover td{
+    padding: 5px;
+    background:midnightblue;
+    color:#FFFFFF;
+  }
+
+  .openTable{
+    width: max-content;
+     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.1);
+     border-radius:2px;
+     border-collapse:collapse;
+     border:2px solid #333333;
+     margin:2px;
+     position:relative;
+     /* left: 1px; */
+     width: max-content; 
+
+  }
+  .openTable, td ,tr{
+    border-bottom: 1px solid #f2f2f2;
+    border: none !important;
+    /* justify-content: center; */
+   
+   
+  }
+
+  .openTable,tr{
+    /* display:table-row; */
+  }
+  /* .cell > span{
+  width:50px
+  } */
+   
+  /* .Ciginti_popiteminvoke:nth-child(even) {
+  background: #aaa;
+  } */
+  .Ciginti_popiteminvoke:nth-child(even) {
+  color: red;
+  }
+   
+  .Application_Name{
+    margin-right: 135px;
+    font-size: x-large;
+  }
+   
+  .log_icon{
+    font-size: x-large;
+    margin-top: 23px;
+  }
+
+
+  .main-231 {
+    width: auto !important;
+    max-width: 50% !important;
+    /* min-width: 288px; */
+    height: auto !important;
+  }
+  /* .inner-239 {
+    padding: 0px 22px 0px;
+  }
+   */
+   
+   
+  .ms-List-page{
+    height: auto !important;
+  }
+   
+   
+  
+  .ms-Modal-scrollableContent{
+    width: auto;
+    max-width: 950px;
+    padding: 0px;
+  }
+  
+  
+  .check-182{
+    margin-top: 13px !important;
+  }
+  
+  .Model_msg{
+    margin: 10px;
+  }
+  
+  .check-156{
+    margin-top: 13px !important;
+  
+  }
+  
+  
+  
+  .request_dd:hover {
+    background-color: midnightblue !; 
+    color: white;
+  }
+
+  
