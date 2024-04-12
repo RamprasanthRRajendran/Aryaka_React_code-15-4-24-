@@ -243,9 +243,10 @@ const handleshowhistory=()=>{
 
   
   useEffect(() => {
+    sendRefreshedMessage();
     setIsLoading(true);
   
-    fetch('http://127.0.0.1:5000/send_message', {
+    fetch('https://aryaka-ai-chat.azurewebsites.net/send_message', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -312,7 +313,7 @@ const handleshowhistory=()=>{
 // };
 const sendRefreshedMessage = async () => {
   try {
-    const response = await fetch('http://127.0.0.1:5000/refreshed', {
+    const response = await fetch('https://aryaka-ai-chat.azurewebsites.net/refreshed', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -332,7 +333,7 @@ const sendRefreshedMessage = async () => {
       setChat(prevChat => [...prevChat, newUserMessage, { role: "assistant", content: "Typing..." }]);
       setLastResponse(message);
   
-      fetch('http://127.0.0.1:5000/send_message', {
+      fetch('https://aryaka-ai-chat.azurewebsites.net/send_message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -372,7 +373,7 @@ const sendRefreshedMessage = async () => {
         const [dots, setDots] = useState('...');
         // setInputdisable(true);
         useEffect(() => {
-          sendRefreshedMessage();
+          
           const interval = setInterval(() => {
             setDots((prev) => (prev.length < 3 ? prev + '.' : ''));
           }, duration / 3);
