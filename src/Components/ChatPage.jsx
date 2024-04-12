@@ -164,7 +164,7 @@ const [selectedItemContent, setSelectedItemContent] = useState("");
 const [latestItemName, setLatestItemName] = useState("");
 const [latestItemContent, setLatestItemContent] = useState("");
 const [showLogoutBox,setShowLogoutBox]=useState(false);
-const { instance, accounts,inProgress } = useMsal();
+// const { instance, accounts,inProgress } = useMsal();
 const [userPhoto, setUserPhoto] = useState(null);
 const [showLogout, setShowLogout] = useState(false);
 const [isPersonnaCardVisible, setIsPersonnaCardVisible] = useState(false);
@@ -177,28 +177,28 @@ const [isOpen, { setTrue: openPanel, setFalse: dismissPanel }] = useBoolean(fals
 
 
 
-useEffect(() => {
-    const getUserPhoto = async () => {
-        const response = await instance.acquireTokenSilent({
-            ...loginRequest,
-            account: accounts[0]
-        });
+// useEffect(() => {
+//     const getUserPhoto = async () => {
+//         const response = await instance.acquireTokenSilent({
+//             ...loginRequest,
+//             account: accounts[0]
+//         });
 
-        const userPhotoResponse = await fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
-            headers: {
-                'Authorization': 'Bearer ' + response.accessToken
-            }
-        });
+//         const userPhotoResponse = await fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
+//             headers: {
+//                 'Authorization': 'Bearer ' + response.accessToken
+//             }
+//         });
 
-        if (userPhotoResponse.ok) {
-            const blob = await userPhotoResponse.blob();
-            const url = URL.createObjectURL(blob);
-            setUserPhoto(url);
-        }
-    };
+//         if (userPhotoResponse.ok) {
+//             const blob = await userPhotoResponse.blob();
+//             const url = URL.createObjectURL(blob);
+//             setUserPhoto(url);
+//         }
+//     };
 
-    getUserPhoto();
-}, [instance, accounts]);
+//     getUserPhoto();
+// }, [instance, accounts]);
 
 const toggleIsCalloutVisible = () => {
   setIsPersonnaCardVisible(!isPersonnaCardVisible);
@@ -307,10 +307,25 @@ const handleshowhistory=()=>{
     }
   };
  
-  const handleLogout = () => {
-    instance.logout();
+//   const handleLogout = () => {
+//     instance.logout();
+// };
+const sendRefreshedMessage = async () => {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/refreshed', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: 'Refreshed' })
+    });
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
 };
- 
+
   const handleSubmit = () => {
     if (textSelected && message.trim().length > 0) {
       const newUserMessage = { role: "user", content: message };
@@ -357,6 +372,7 @@ const handleshowhistory=()=>{
         const [dots, setDots] = useState('...');
         // setInputdisable(true);
         useEffect(() => {
+          sendRefreshedMessage();
           const interval = setInterval(() => {
             setDots((prev) => (prev.length < 3 ? prev + '.' : ''));
           }, duration / 3);
@@ -470,8 +486,8 @@ const handleshowhistory=()=>{
       
  
   return (
-    inProgress === 'none' && accounts.length === 0 
-    ?<LoginPage />:
+    // inProgress === 'none' && accounts.length === 0 
+    // ?<LoginPage />:
       <ChatScreenWrapper >
         <HeaderWrapper>
         <div>
@@ -512,9 +528,11 @@ const handleshowhistory=()=>{
         className="personaButton"
         
     imageUrl={userPhoto}
-    text={accounts[0]?.name}
+    // text={accounts[0]?.name}
+    text="Test User"
     styles={personaStyles}
-    secondaryText={accounts[0].username}
+    // secondaryText={accounts[0]?.username}
+    secondaryText="TestUser@Test.com"
     size={PersonaSize.size32}
     showOverflowTooltip={true}
     // showInitialsUntilImageLoads={true}
@@ -547,10 +565,10 @@ const handleshowhistory=()=>{
         <br />
         <br />
         <div className="detailedUser">
-        <img src={userPhoto} alt="User" style={{width:'25%', height:"25%", borderRadius:'50%'}} />
+        {/* <img src={userPhoto} alt="User" style={{width:'25%', height:"25%", borderRadius:'50%'}} /> */}
   
-    <span style={{color:"black",fontWeight:"600"}} title="Display Name">{accounts[0]?.name}</span>
-    <span style={{color:"#717171"}} title="User Email">{accounts[0]?.username}</span>
+    <span style={{color:"black",fontWeight:"600"}} title="Display Name">Your Name</span>
+    <span style={{color:"#717171"}} title="User Email">Your Email</span>
   
   </div>
   <br />
@@ -558,7 +576,7 @@ const handleshowhistory=()=>{
   <br />
  
           <div style={{display:"flex",justifyContent:"center"}}>
-          <button className="personnaSignout"style={{color:priColor,border:"none",background:"none"}} onClick={()=>handleLogout()}>Sign Out of your Account</button>
+          {/* <button className="personnaSignout"style={{color:priColor,border:"none",background:"none"}} onClick={()=>handleLogout()}>Sign Out of your Account</button> */}
         </div>
           </div>
         </Callout>
@@ -1042,7 +1060,7 @@ if (contentMatch) {
         <PrimaryButton onClick={() => setShowPopup(false)} style={{ position:"relative",left:"150px",top:"22px"}}>Ok</PrimaryButton>
       </Dialog>
       <ThemeProvider theme={theme}>
-      <Dialog
+      {/* <Dialog
   hidden={!showLogoutBox}
   onDismiss={()=>setShowLogoutBox(false)}
   dialogContentProps={{
@@ -1066,7 +1084,7 @@ if (contentMatch) {
           rootPressed: { backgroundColor: secColor, borderColor: secColor } 
         }} />
   </DialogFooter>
-</Dialog>
+</Dialog> */}
 </ThemeProvider>
 <Panel
   isOpen={showHistory}

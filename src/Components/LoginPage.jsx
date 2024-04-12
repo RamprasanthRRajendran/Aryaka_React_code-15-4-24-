@@ -1,24 +1,24 @@
-import React from 'react';
-import { loginRequest } from '../config';
-import { MsalConsumer } from '@azure/msal-react';
+// import React from 'react';
+// import { loginRequest } from '../config';
+// import { MsalConsumer } from '@azure/msal-react';
 
-class LoginPage extends React.Component {
-  initializeSignIn = (instance, inProgress, accounts) => {
-    if (inProgress === 'none' && accounts.length === 0) {
-      instance.loginRedirect(loginRequest);
-    }
-  };
+// class LoginPage extends React.Component {
+//   initializeSignIn = (instance, inProgress, accounts) => {
+//     if (inProgress === 'none' && accounts.length === 0) {
+//       instance.loginRedirect(loginRequest);
+//     }
+//   };
 
-  render() {
-    return (
-      <MsalConsumer>
-        {({ instance, inProgress, accounts }) => {
-          this.initializeSignIn(instance, inProgress, accounts);
-          return null;
-        }}
-      </MsalConsumer>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <MsalConsumer>
+//         {({ instance, inProgress, accounts }) => {
+//           this.initializeSignIn(instance, inProgress, accounts);
+//           return null;
+//         }}
+//       </MsalConsumer>
+//     );
+//   }
+// }
 
-export default LoginPage;
+// export default LoginPage;

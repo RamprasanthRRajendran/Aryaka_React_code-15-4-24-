@@ -7,15 +7,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const msalInstance = new PublicClientApplication(msalConfig);
+// const msalInstance = new PublicClientApplication(msalConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <MsalProvider instance={msalInstance}>
+  // <MsalProvider instance={msalInstance}>
   <React.StrictMode>
     <App />
   </React.StrictMode>
-  </MsalProvider>
+  // </MsalProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
