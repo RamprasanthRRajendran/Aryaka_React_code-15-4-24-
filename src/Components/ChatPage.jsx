@@ -3,7 +3,6 @@ import { Stack, TextField } from "@fluentui/react";
 import Prism from "prismjs";
 import { Client } from '@microsoft/microsoft-graph-client';
 import {  useId } from '@fluentui/react-hooks';
-import { useBoolean } from '@fluentui/react-hooks';
 import { Panel, PanelType } from '@fluentui/react/lib/Panel';
 import "prismjs/themes/prism.css";
 import "prismjs/components/prism-javascript";
@@ -13,7 +12,7 @@ import { Text } from "@fluentui/react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
-import { DefaultButton, IconButton,CommandButton } from "@fluentui/react/lib/Button";
+import { DefaultButton, IconButton } from "@fluentui/react/lib/Button";
 import { CommandBar } from "@fluentui/react/lib/CommandBar";
 import { Icon } from "@fluentui/react/lib/Icon";
 import { CommandBarButton,Callout} from "@fluentui/react";
@@ -46,45 +45,44 @@ import LoginPage from "./LoginPage";
 
 
 
-      const CommandBarWrapper = styled.div`
-      .ms-Icon{
-        color:midnightblue
-      }
-      .selectedTab {
-        background-color: Midnightblue; 
-        color: white; 
-        margin-bottom:0px;
-        // height: 50px; // Set the height of the selected tab
+const commandBarStyles = {
+ 
+  root:{
+    width: "280px",
+    padding: "0px 0px 0px 0px",
+    backgroundColor:`${priColor}`,
+    height: "35px",
+  
+      },
+  rootHovered: { backgroundColor: `${priColor}` },
+   // Specify the hover color
+};
+
+const CommandBarWrapper = styled.div`
+  .ms-Icon{
+    color:midnightblue
+  }
+  .selectedTab {
+    background-color: Midnightblue; 
+    color: white; 
+    margin-bottom:0px;
+    // height: 50px; // Set the height of the selected tab
+
+    .ms-Icon {
+      color: white;
+    }
+  }
+  
+  .request_dd:hover {
+    background-color: Midnightblue;
+    color: white;
+
     
-        .ms-Icon {
-          color: white;
-        }
-      }
-      
-      .request_dd:hover {
-        background-color: Midnightblue;
-        color: white;
-    
-        
-        .ms-Icon {
-          color: white;
-        }
-      }
-    `;
-      
-      
-      
-      const commandBarStyles = {
-     
-        root:{
-          width: "250px",
-          padding: "0px 0px 0px 0px",
-          backgroundColor:"Midnightblue",
-          height: "35px",
-            },
-        rootHovered: { backgroundColor: "Midnightblue" },
-         // Specify the hover color
-      };
+    .ms-Icon {
+      color: white;
+    }
+  }
+`;
 
 
 const ChatScreenWrapper = styled.div`
@@ -164,49 +162,41 @@ const [selectedItemContent, setSelectedItemContent] = useState("");
 const [latestItemName, setLatestItemName] = useState("");
 const [latestItemContent, setLatestItemContent] = useState("");
 const [showLogoutBox,setShowLogoutBox]=useState(false);
-// const { instance, accounts,inProgress } = useMsal();
+
 const [userPhoto, setUserPhoto] = useState(null);
 const [showLogout, setShowLogout] = useState(false);
 const [isPersonnaCardVisible, setIsPersonnaCardVisible] = useState(false);
-const [like, setLike] = useState(false);
-const [dislike, setDislike] = useState(false);
-const [likeStates, setLikeStates] = useState([]);
-  const [dislikeStates, setDislikeStates] = useState([]);
-const [showHistory,setShowHistory]=useState(false);
-const [isOpen, { setTrue: openPanel, setFalse: dismissPanel }] = useBoolean(false);
+const { instance, accounts,inProgress } = useMsal();
 
 
 
-// useEffect(() => {
-//     const getUserPhoto = async () => {
-//         const response = await instance.acquireTokenSilent({
-//             ...loginRequest,
-//             account: accounts[0]
-//         });
 
-//         const userPhotoResponse = await fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
-//             headers: {
-//                 'Authorization': 'Bearer ' + response.accessToken
-//             }
-//         });
+useEffect(() => {
+    const getUserPhoto = async () => {
+        const response = await instance.acquireTokenSilent({
+            ...loginRequest,
+            account: accounts[0]
+        });
 
-//         if (userPhotoResponse.ok) {
-//             const blob = await userPhotoResponse.blob();
-//             const url = URL.createObjectURL(blob);
-//             setUserPhoto(url);
-//         }
-//     };
+        const userPhotoResponse = await fetch("https://graph.microsoft.com/v1.0/me/photo/$value", {
+            headers: {
+                'Authorization': 'Bearer ' + response.accessToken
+            }
+        });
 
-//     getUserPhoto();
-// }, [instance, accounts]);
+        if (userPhotoResponse.ok) {
+            const blob = await userPhotoResponse.blob();
+            const url = URL.createObjectURL(blob);
+            setUserPhoto(url);
+        }
+    };
+
+    getUserPhoto();
+}, [instance, accounts]);
 
 const toggleIsCalloutVisible = () => {
   setIsPersonnaCardVisible(!isPersonnaCardVisible);
 };
-
-const handleshowhistory=()=>{
-  setShowHistory(!showHistory)
-}
 
   
 
@@ -246,18 +236,18 @@ const handleshowhistory=()=>{
     sendRefreshedMessage();
     setIsLoading(true);
   
-    fetch('https://aryaka-ai-chat.azurewebsites.net/send_message', {
+    fetch('http://localhost:5000/send_message', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: "Your initial message here" }),
+      // body: JSON.stringify({ message: "Your initial message here" }),
     })
       .then(response => response.json())
       .then(data => {
-        const [aiMessage, itemName, itemContent] = data.split("---ENDEND---");
-        setLatestItemName(itemName);
-        setLatestItemContent(itemContent);
+        const [aiMessage, links] = [data['ai_response'], data['links']]
+        setLatestItemName(links.length > 0);
+        setLatestItemContent(links);
   
         console.log('Received message from Python:', aiMessage);
         setIsLoading(false);
@@ -270,15 +260,15 @@ const handleshowhistory=()=>{
             prevChat[lastMessageIndex] = {
               role: "assistant",
               content: aiMessage,
-              itemName1: itemName,
-              itemContent1: itemContent,
+              itemName1: links.length > 0,
+              itemContent1: links,
             };
           } else {
             prevChat.push({
               role: "assistant",
               content: aiMessage,
-              itemName1: itemName,
-              itemContent1: itemContent,
+              itemName1: links.length > 0,
+              itemContent1: links,
             });
           }
   
@@ -308,12 +298,12 @@ const handleshowhistory=()=>{
     }
   };
  
-//   const handleLogout = () => {
-//     instance.logout();
-// };
+  const handleLogout = () => {
+    instance.logout();
+};
 const sendRefreshedMessage = async () => {
   try {
-    const response = await fetch('https://aryaka-ai-chat.azurewebsites.net/refreshed', {
+    const response = await fetch('http://localhost:5000/refreshed', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -326,14 +316,14 @@ const sendRefreshedMessage = async () => {
     console.error('Error:', error);
   }
 };
-
+ 
   const handleSubmit = () => {
     if (textSelected && message.trim().length > 0) {
       const newUserMessage = { role: "user", content: message };
       setChat(prevChat => [...prevChat, newUserMessage, { role: "assistant", content: "Typing..." }]);
       setLastResponse(message);
   
-      fetch('https://aryaka-ai-chat.azurewebsites.net/send_message', {
+      fetch('http://localhost:5000/send_message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -342,9 +332,9 @@ const sendRefreshedMessage = async () => {
       })
         .then(response => response.json())
         .then(data => {
-          const [aiMessage, itemName, itemContent] = data.split("---ENDEND---");
-          setLatestItemName(itemName);
-          setLatestItemContent(itemContent);
+          const [aiMessage, links] = [data['ai_response'], data['links']]
+          setLatestItemName(links.length > 0);
+          setLatestItemContent(links);
   
           console.log('Received message from Python:', aiMessage);
           setChat(prevChat => {
@@ -352,8 +342,8 @@ const sendRefreshedMessage = async () => {
             prevChat[index] = {
               role: "assistant",
               content: aiMessage,
-              itemName1: itemName,
-              itemContent1: itemContent,
+              itemName1: links.length > 0,
+              itemContent1: links,
             };
             return [...prevChat];
           });
@@ -373,7 +363,7 @@ const sendRefreshedMessage = async () => {
         const [dots, setDots] = useState('...');
         // setInputdisable(true);
         useEffect(() => {
-          
+          // sendRefreshedMessage();
           const interval = setInterval(() => {
             setDots((prev) => (prev.length < 3 ? prev + '.' : ''));
           }, duration / 3);
@@ -404,28 +394,6 @@ const sendRefreshedMessage = async () => {
           setSelectedItemContent(finalContent);
           setItemContentShowDialog(true);
         }
-      };
-
-      const handleLike = (index) => {
-        const updatedLikeStates = [...likeStates];
-        updatedLikeStates[index] = true; // Set liked
-        setLikeStates(updatedLikeStates);
-    
-        // Reset dislike state for the same response
-        const updatedDislikeStates = [...dislikeStates];
-        updatedDislikeStates[index] = false;
-        setDislikeStates(updatedDislikeStates);
-      };
-    
-      const handleDislike = (index) => {
-        const updatedDislikeStates = [...dislikeStates];
-        updatedDislikeStates[index] = true; // Set disliked
-        setDislikeStates(updatedDislikeStates);
-    
-        // Reset like state for the same response
-        const updatedLikeStates = [...likeStates];
-        updatedLikeStates[index] = false;
-        setLikeStates(updatedLikeStates);
       };
 
       const buttonId = useId('callout-button');
@@ -472,7 +440,6 @@ const sendRefreshedMessage = async () => {
     }
 
     const priColorBckg=convertToButtonsBackgroundImage(priColor);
-    console.log(priColorBckg)
 
     function addAlphaColor(color){
       if (color.startsWith('#')) {
@@ -487,8 +454,8 @@ const sendRefreshedMessage = async () => {
       
  
   return (
-    // inProgress === 'none' && accounts.length === 0 
-    // ?<LoginPage />:
+    inProgress === 'none' && accounts.length === 0 
+    ?<LoginPage />:
       <ChatScreenWrapper >
         <HeaderWrapper>
         <div>
@@ -501,8 +468,8 @@ const sendRefreshedMessage = async () => {
                 color: "black",
 
               }}
-              // src={LogoUrl}
-              src="https://cdn-bbian.nitrocdn.com/XKJOdyGxDowApPGzDsFKwfcKfdRZpLjJ/assets/images/optimized/rev-5a65a5c/www.aryaka.com/8ea77dab19026d797ff4a67fe0efd8e2.favicon.ico"
+              src={LogoUrl}
+              // src="C:\Generative-AI\Xen AI Assistant\FrontEnd-React Code\Assets\getsitelogo.png"
             >
               {/* Xencia */}
             </img>
@@ -529,11 +496,9 @@ const sendRefreshedMessage = async () => {
         className="personaButton"
         
     imageUrl={userPhoto}
-    // text={accounts[0]?.name}
-    text="Test User"
+    text={accounts[0]?.name}
     styles={personaStyles}
-    // secondaryText={accounts[0]?.username}
-    secondaryText="TestUser@Test.com"
+    secondaryText={accounts[0].username}
     size={PersonaSize.size32}
     showOverflowTooltip={true}
     // showInitialsUntilImageLoads={true}
@@ -561,24 +526,35 @@ const sendRefreshedMessage = async () => {
           setInitialFocus
         >
           <div className="PersonaCard">
-         
+          <div style={{display:"flex",justifyContent:"flex-end"}}>
+          <button className="personnaSignout"style={{color:priColor,border:"none",background:"none"}} onClick={()=>handleLogout()}>Sign Out</button>
+        </div>
         <br />
-        <br />
+        
         <br />
         <div className="detailedUser">
-        {/* <img src={userPhoto} alt="User" style={{width:'25%', height:"25%", borderRadius:'50%'}} /> */}
+        <img src={userPhoto} alt="User" style={{width:'25%', height:"25%", borderRadius:'50%'}} />
   
-    <span style={{color:"black",fontWeight:"600"}} title="Display Name">Your Name</span>
-    <span style={{color:"#717171"}} title="User Email">Your Email</span>
+    <span style={{color:"black",fontWeight:"600"}} title="Display Name">{accounts[0]?.name}</span>
+    <span style={{color:"#717171"}} title="User Email">{accounts[0]?.username}</span>
   
   </div>
   <br />
   <br />
   <br />
- 
-          <div style={{display:"flex",justifyContent:"center"}}>
-          {/* <button className="personnaSignout"style={{color:priColor,border:"none",background:"none"}} onClick={()=>handleLogout()}>Sign Out of your Account</button> */}
-        </div>
+  <br />
+          <div>
+            <button className="personnaSignout2" style={{color:secColor,border:"none",background:"none"}}  onClick={() => {
+    instance.loginRedirect({
+      scopes: ['User.Read'],
+      prompt: 'select_account',
+    });
+  }}><i style={{paddingLeft:"4px"}}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+      <path d="M6.22176 13.9567C3.55468 13.653 2 11.8026 2 10V9.5C2 8.67157 2.67157 8 3.5 8H5.59971C5.43777 8.31679 5.30564 8.65136 5.20703 9H3.5C3.22386 9 3 9.22386 3 9.5V10C3 11.1281 3.88187 12.333 5.50235 12.7996C5.69426 13.216 5.93668 13.6043 6.22176 13.9567ZM9.62596 5.06907C9.70657 4.81036 9.75 4.53525 9.75 4.25C9.75 2.73122 8.51878 1.5 7 1.5C5.48122 1.5 4.25 2.73122 4.25 4.25C4.25 5.53662 5.13357 6.61687 6.32704 6.91706C6.64202 6.55055 7.00446 6.226 7.40482 5.95294C7.27488 5.98371 7.13934 6 7 6C6.0335 6 5.25 5.2165 5.25 4.25C5.25 3.2835 6.0335 2.5 7 2.5C7.9665 2.5 8.75 3.2835 8.75 4.25C8.75 4.73141 8.55561 5.16743 8.24104 5.48382C8.67558 5.28783 9.14016 5.14664 9.62596 5.06907ZM10.5 15C12.9853 15 15 12.9853 15 10.5C15 8.01472 12.9853 6 10.5 6C8.01472 6 6 8.01472 6 10.5C6 12.9853 8.01472 15 10.5 15ZM10.5 8C10.7761 8 11 8.22386 11 8.5V10H12.5C12.7761 10 13 10.2239 13 10.5C13 10.7761 12.7761 11 12.5 11H11V12.5C11 12.7761 10.7761 13 10.5 13C10.2239 13 10 12.7761 10 12.5V11H8.5C8.22386 11 8 10.7761 8 10.5C8 10.2239 8.22386 10 8.5 10H10V8.5C10 8.22386 10.2239 8 10.5 8Z" fill="currentColor"></path>
+    </svg>
+  </i>Sign in with a different account</button>
+          </div>
           </div>
         </Callout>
       )}
@@ -598,50 +574,13 @@ const sendRefreshedMessage = async () => {
         <br />
        
 {/* <div style={{display:"flex", justifyContent: "end" ,marginTop: "-38px",paddingRight: "185px" }}> */}
-<div style={{display:"flex", justifyContent: "end" ,marginTop: "-44px",paddingRight: "30px" }}>
+<div style={{display:"flex", justifyContent: "end" ,marginTop: "-38px",paddingRight: "30px" }}>
 
 </div>
 <div  style={{position: "relative",marginBottom: "6px"}}></div>
  
-<div style={{display:"flex", justifyContent: "end",paddingBottom:"5px" }}>
-{/* <CommandBarWrapper>
-    <CommandBar
-      items={[
-        {
-          key: "chatHistory",
-          text: "Chat History",
-          style:{},
-          iconProps: {
-            iconName: "chat",
-          },
-          onClick: handleshowhistory, // corrected here
-        },
-      ]}
-      styles={{root:{height:"35px"}}}
-    />
-</CommandBarWrapper> */}
-<CommandButton 
-    style={{
-        backgroundColor: "white",
-        transition: "background-color 0.3s ease",
-        color:"black",
-        height:"30px"
-    }} 
-    onMouseOver={(e) => {
-        e.currentTarget.style.backgroundColor = "rgb(2, 3, 129)";
-        e.currentTarget.style.color="white";
-    }} 
-    onMouseOut={(e) => {
-        e.currentTarget.style.backgroundColor = "white";
-        e.currentTarget.style.color="black";
-    }} 
-    onClick={handleshowhistory}
->
-    Show History
-</CommandButton>
-  </div>
+ 
 <ChatAreaWrapper className="chatArea"   ref={chatAreaRef}>
-
 
 <div className="chatMessages"   >
   {newPage ? (
@@ -720,11 +659,10 @@ if (contentMatch) {
               <TypingAnimation duration={1000} />
               <br></br>
                 {/* <br /> */}
-                <p style={{fontSize:"10px", fontWeight:"400px",color:"grey",position:"relative",top:"10px",paddingBottom:"10px"}} >Your content is being generated by AI</p>
+                <p style={{fontSize:"10px", fontWeight:"400px",color:"grey",position:"relative",top:"10px",paddingBottom:"10px"}} >This is  an AI-generated content</p>
             </span>
             
-          ) :
-           (
+          ) : (
             <div>
             <span >
               {msg.role === 'user' ?
@@ -736,8 +674,7 @@ if (contentMatch) {
                 
                 
               : (
-                animationEffect === true ?  (  
-                <div key={index}  ref={chatAreaRef}>
+                animationEffect === true ?  (  <div key={index}  ref={chatAreaRef}>
                 {/* <span className="contentFormatOpenai">{preCodeContent}</span> */}
                 <pre key={index} className="FormatOpenaicontent21" >
                 <div>
@@ -758,76 +695,26 @@ if (contentMatch) {
       {/* <p style={{fontSize:"11px"}}>{postCodeContent}</p> */}
       <br />
       <br />
-      {/* <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+      {msg.itemName1?(<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                       <details>
-                        <summary>References</summary>
+                      <summary>References</summary>
                         <ol>
-                        <li className="itemsInContent" style={{color:priColor}}onClick={() => handleItemClick(msg.itemName1)}>{msg.itemName1}</li>
-                          
+                        {msg.itemContent1.map((link) => (
+                            <li >
+                            <a href={link} target="_blank">{link}</a>
+                            </li>
+                        ))}
+                        {/* <li className="itemsInContent" style={{color:priColor}}onClick={() => handleItemClick(msg.itemName1)}>{msg.itemName1}</li> */}
                         </ol>
                       </details>
                       <div style={{textAlign: 'right'}}>
                         <p style={{fontSize:'10px', fontWeight:'400px', color:'grey',marginTop: "0px"}}>This is an AI-generated content</p>
                       </div>
-                    </div> */}
-      {msg.itemName1!="False"?( <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                      
-                      <div style={{textAlign: 'left'}}>
-                        <p style={{fontSize:'10px', fontWeight:'400px', color:'grey'}}>This is an AI-generated content</p>
-                      </div>
-                      <div style={{float:"right", display:"flex",gap:"10px",position:"relative",bottom:"-9px"}}>
-                      <Icon
-  iconName={likeStates[index] ? "Likesolid" : "Like"}
-  onClick={() => handleLike(index)}
-  title="Like"
-  style={{
-    color: likeStates[index] ? 'rgb(253, 103, 28)' : '',
-    fontSize: '12px',
-    fontWeight: '400px',
-    cursor: 'pointer'
-  }}
-/>
-<Icon
-  iconName={dislikeStates[index] ? "Dislikesolid" : "Dislike"}
-  onClick={() => handleDislike(index)}
-  title="Dislike"
-  style={{
-    color: dislikeStates[index] ? 'rgb(253, 103, 28)' : '',
-    fontSize: '12px',
-    fontWeight: '400px',
-    cursor: 'pointer'
-  }}
-/>
-    </div>
                     </div>):(   <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                       
                       <div style={{textAlign: 'left'}}>
                         <p style={{fontSize:'10px', fontWeight:'400px', color:'grey'}}>This is an AI-generated content</p>
                       </div>
-                      <div style={{float:"right", display:"flex",gap:"10px",position:"relative",bottom:"-9px"}}>
-                      <Icon
-  iconName={likeStates[index] ? "Likesolid" : "Like"}
-  onClick={() => handleLike(index)}
-  title="Like"
-  style={{
-    color: likeStates[index] ? 'rgb(253, 103, 28)' : '',
-    fontSize: '12px',
-    fontWeight: '400px',
-    cursor: 'pointer'
-  }}
-/>
-<Icon
-  iconName={dislikeStates[index] ? "Dislikesolid" : "Dislike"}
-  onClick={() => handleDislike(index)}
-  title="Dislike"
-  style={{
-    color: dislikeStates[index] ? 'rgb(253, 103, 28)' : '',
-    fontSize: '12px',
-    fontWeight: '400px',
-    cursor: 'pointer'
-  }}
-/>
-    </div>
                     </div>)}
       </div>
     </div>
@@ -872,8 +759,6 @@ if (contentMatch) {
     {selectedItemContent}
   </p>
 </Panel>
-
-
         
         </div>
         
@@ -904,7 +789,7 @@ if (contentMatch) {
           color: "#BDBDBD !important",
         },
         root: {
-          background:"turquoise",
+          backgroundImage:priColorBckg,
           // background: linear-gradient(to bottom, rgba(212, 24, 100, 0.9), rgba(212, 24, 100, 0.6)) !important;
           textShadow: "0px 2px 2px rgba(0, 0, 0, 0.5)",
           boxShadow:"0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);"
@@ -914,7 +799,7 @@ if (contentMatch) {
         },
         rootHovered:{
           // background:"#f47721"
-          background:"rgb(65, 88, 208)",
+          backgroundImage:priColorBckg,
           textShadow: "0px 2px 2px rgba(0, 0, 0, 0.5)",
           boxShadow:"0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.92);",
           // background:secColor,
@@ -945,7 +830,7 @@ if (contentMatch) {
           color: "#BDBDBD !important",
         },
         root: {
-          background:"turquoise",
+          backgroundImage:priColorBckg,
           // background: linear-gradient(to bottom, rgba(212, 24, 100, 0.9), rgba(212, 24, 100, 0.6)) !important;
           textShadow: "0px 2px 2px rgba(0, 0, 0, 0.5)",
           boxShadow:"0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);"
@@ -955,7 +840,7 @@ if (contentMatch) {
         },
         rootHovered:{
           // background:"#f47721"
-          background:"rgb(65, 88, 208)",
+          backgroundImage:priColorBckg,
           textShadow: "0px 2px 2px rgba(0, 0, 0, 0.5)",
           boxShadow:"0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.92);",
           // background:secColor,
@@ -996,7 +881,7 @@ if (contentMatch) {
 //  onClick={handleSubmit}
  styles={{ 
    root: { position: 'absolute', bottom: 0, right: 0 ,fontSize:"11px"},
-   icon: { fontSize: 20, color: "#fd671c" },
+   icon: { fontSize: 20, color: "grey" },
    rootDisabled:{position: 'absolute', bottom: 0, right: 0 ,fontSize:"11px"}
  }}
 //  disabled={true} // Disable the send button when the AI is typing
@@ -1027,14 +912,14 @@ if (contentMatch) {
  onClick={handleSubmit}
  styles={{ 
    root: { position: 'absolute', bottom: 0, right: 0 ,fontSize:"11px"},
-   icon: { fontSize: 20, color: "#fd671c" },
+   icon: { fontSize: 20, color: priColor },
    rootDisabled:{position: 'absolute', bottom: 0, right: 0 ,fontSize:"11px"}
  }}
 //  disabled={isTyping}/ // Disable the send button when the AI is typing
 />
 <div 
   className="questionInputBottomBorder" 
-  style={{backgroundImage: `linear-gradient(to left, rgb(65, 88, 208), turquoise)`}}
+  style={{backgroundImage: `linear-gradient(to left, ${priAlphaColor}, ${priColor})`}}
 /></div>
 )}
 
@@ -1061,7 +946,7 @@ if (contentMatch) {
         <PrimaryButton onClick={() => setShowPopup(false)} style={{ position:"relative",left:"150px",top:"22px"}}>Ok</PrimaryButton>
       </Dialog>
       <ThemeProvider theme={theme}>
-      {/* <Dialog
+      <Dialog
   hidden={!showLogoutBox}
   onDismiss={()=>setShowLogoutBox(false)}
   dialogContentProps={{
@@ -1085,31 +970,13 @@ if (contentMatch) {
           rootPressed: { backgroundColor: secColor, borderColor: secColor } 
         }} />
   </DialogFooter>
-</Dialog> */}
+</Dialog>
 </ThemeProvider>
-<Panel
-  isOpen={showHistory}
-  onDismiss={handleshowhistory} // corrected here
-  type={PanelType.smallFixedFar}
-  closeButtonAriaLabel="Close"
-  headerText="Chat History"
-  isBlocking={false}
-  styles={{
-    main: {
-      boxShadow: "rgba(0, 0, 0, 0.22) 0px 4.6px 4.6px 0px, rgba(0, 0, 0, 0.18) 3px -0.2px"
-    }
-  }}
->
-  <p style={{ whiteSpace: "pre-wrap", fontSize: "11px" }}>
-    <p>Your History will be shown here.</p>
-  </p>
-</Panel>
+
       
       </ChatScreenWrapper>
 
     
   );
 }
-
- 
 export default ChatPage;
