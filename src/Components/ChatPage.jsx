@@ -236,7 +236,7 @@ const toggleIsCalloutVisible = () => {
     sendRefreshedMessage();
     setIsLoading(true);
   
-    fetch('http://localhost:5000/send_message', {
+    fetch('https://aryaka-webapp-02.azurewebsites.net/send_message', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -303,7 +303,7 @@ const toggleIsCalloutVisible = () => {
 };
 const sendRefreshedMessage = async () => {
   try {
-    const response = await fetch('http://localhost:5000/refreshed', {
+    const response = await fetch('https://aryaka-webapp-02.azurewebsites.net/refreshed', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -323,7 +323,7 @@ const sendRefreshedMessage = async () => {
       setChat(prevChat => [...prevChat, newUserMessage, { role: "assistant", content: "Typing..." }]);
       setLastResponse(message);
   
-      fetch('http://localhost:5000/send_message', {
+      fetch('https://aryaka-webapp-02.azurewebsites.net/send_message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
